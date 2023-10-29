@@ -9,7 +9,7 @@ Ungitz is a CLI application written in Golang, primarily for simplifying git wor
 
 `brew tap hrshankar2002/hrshankar2002`
 
-`brew install hrshankar2002/hrshankar2002/hrshankar2002/ungitz`
+`brew install hrshankar2002/hrshankar2002/ungitz`
 
 ## 📖 Demo
 
