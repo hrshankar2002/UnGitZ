@@ -19,11 +19,11 @@ Ungitz is a CLI application written in Golang, primarily for simplifying git wor
 
 #### Examples
 
-:zero: `ungitz code -f demo.zip,main`
+- `ungitz code -f demo.zip,main`
 
-:one: `ungitz idea -f SpringApplication.zip,master` 
+- `ungitz idea -f SpringApplication.zip,master` 
 
-:two: `ungitz charm -f demo.zip,main`
+- `ungitz charm -f demo.zip,main`
 
 ## To download, unzip and open in VSCode/Intellij Idea/Pycharm
 
@@ -31,11 +31,11 @@ Ungitz is a CLI application written in Golang, primarily for simplifying git wor
 
 #### Examples
 
-:zero: `ungitz code -l http://www.example.com/index.html,demo.zip,main`
+- `ungitz code -l http://www.example.com/index.html,demo.zip,main`
 
-:one: `ungitz idea -l http://www.example.com/index.html,SpringApplication.zip,master`
+- `ungitz idea -l http://www.example.com/index.html,SpringApplication.zip,master`
 
-:two: `ungitz charm -l http://www.example.com/index.html,demo.zip,main`
+- `ungitz charm -l http://www.example.com/index.html,demo.zip,main`
 
 ## 🚀 Technologies
 
