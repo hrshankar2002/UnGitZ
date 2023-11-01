@@ -9,15 +9,21 @@ Ungitz is a CLI application written in Golang, primarily for simplifying git wor
 
 ## :wrench: Installation-Brew
 
-`brew tap hrshankar2002/hrshankar2002`
+```
+$ brew tap hrshankar2002/hrshankar2002
+```
 
-`brew install hrshankar2002/hrshankar2002/ungitz`
+```
+$brew install hrshankar2002/hrshankar2002/ungitz
+```
 
 ## 📖 Demo
 
 ## To unzip and open in VSCode/Intellij Idea/Pycharm
 
-`ungitz <code>/<idea>/<charm> -f <filename>,<repo name>,<branch name>`
+```
+$ungitz <code>/<idea>/<charm> -f <filename>,<repo name>,<branch name>
+```
 
 #### Examples
 
@@ -29,7 +35,9 @@ Ungitz is a CLI application written in Golang, primarily for simplifying git wor
 
 ## To download, unzip and open in VSCode/Intellij Idea/Pycharm
 
-`ungitz <code>/<idea>/<charm> -l <URL>`
+```
+$ungitz <code>/<idea>/<charm> -l <URL>
+```
 
 #### Examples
 
