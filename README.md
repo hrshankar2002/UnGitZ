@@ -15,27 +15,27 @@ Ungitz is a CLI application written in Golang, primarily for simplifying git wor
 
 ## To unzip and open in VSCode/Intellij Idea/Pycharm
 
-`ungitz <code>/<idea>/<charm> -f <filename>,<git branch name>`
+`ungitz <code>/<idea>/<charm> -f <filename>,<repo name>,<branch name>`
 
 #### Examples
 
-- `ungitz code -f demo.zip,main`
+- `ungitz code -f demo.zip,testname1,main`
 
-- `ungitz idea -f SpringApplication.zip,master` 
+- `ungitz idea -f SpringApplication.zip,testname2,master` 
 
-- `ungitz charm -f demo.zip,main`
+- `ungitz charm -f demo.zip,testname3,master`
 
 ## To download, unzip and open in VSCode/Intellij Idea/Pycharm
 
-`ungitz code/idea/charm -l <URL>,<filename>,<git branch name>`
+`ungitz <code>/<idea>/<charm> -l <URL>`
 
 #### Examples
 
-- `ungitz code -l http://www.example.com/index.html,demo.zip,main`
+- `ungitz code -l https://github.com/tensorflow/tensorflow/archive/refs/heads/master.zip`
 
-- `ungitz idea -l http://www.example.com/index.html,SpringApplication.zip,master`
+- `ungitz idea -l https://github.com/tensorflow/tensorflow/archive/refs/heads/master.zip`
 
-- `ungitz charm -l http://www.example.com/index.html,demo.zip,main`
+- `ungitz charm -l https://github.com/tensorflow/tensorflow/archive/refs/heads/master.zip`
 
 ## 🚀 Technologies
 
