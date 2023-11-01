@@ -9,6 +9,8 @@ import (
 	"os"
 	"path"
 	"path/filepath"
+	"regexp"
+
 	"strings"
 )
 
@@ -116,4 +118,15 @@ func Download(filename, link string) error {
 	}
 	fmt.Println("Download successful.")
 	return nil
+}
+
+// regex filter
+func RegexFilter(sentence, regexrule string) string {
+	var extract string
+	re := regexp.MustCompile(regexrule)
+	match := re.FindStringSubmatch(sentence)
+	if len(match) > 1 {
+		extract = match[1]
+	}
+	return extract
 }

@@ -9,7 +9,7 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
-	"regexp"
+	"strings"
 	"sync"
 	"ungitz/util"
 
@@ -17,10 +17,11 @@ import (
 )
 
 var File_flag []string
-var link_flag []string
+var link_flag string
 var File string
 var wg = sync.WaitGroup{}
-var pattern = `-(.+)`
+var branch_pattern = `\/([^\/]+)$`
+var fname_pattern = `(?:[^/]+/){2}([^/]+)`
 
 // codeCmd represents the code command
 var codeCmd = &cobra.Command{
@@ -29,13 +30,13 @@ var codeCmd = &cobra.Command{
 	Long: `This command will help to open the unzipped folder to Visual Studio Code.
 	In order for this command to work, Visual Studio code should be installed in your system`,
 	Args: func(cmd *cobra.Command, args []string) error {
-		if len(File_flag) < 1 && len(link_flag) < 1 && len(args) < 1 {
+		if len(File_flag) < 1 && link_flag == "" && len(args) < 1 {
 			return errors.New("accept(s) 1 argument")
 		}
 		return nil
 	},
-	Example: `ungitz code -f <filename>,<branch name>
-ungitz code -l <URL>,<filename>,<branch name>`,
+	Example: `ungitz code -f <filename>,<repo name>
+ungitz code -l <URL>`,
 	DisableFlagsInUseLine: true,
 	Run: func(cmd *cobra.Command, args []string) {
 		var fileName string
@@ -44,25 +45,32 @@ ungitz code -l <URL>,<filename>,<branch name>`,
 		var link_arg string
 		var name_arg string
 		var branch_arg string
+		var repo_name string
+		var err1 error
+		var fileName1 string
+		var branch_name string
+		var repo_name1 string
 
 		// flag check
 		if len(File_flag) != 0 {
 			argument = File_flag[0]
-			branch_arg = File_flag[1]
+			repo_name1 = File_flag[1]
+			branch_name = File_flag[2]
+			repo_name = repo_name1 + "-" + branch_name
 
-		} else if len(link_flag) != 0 {
-			link_arg = link_flag[0]
-			name_arg = link_flag[1]
-			branch_arg = link_flag[2]
+		} else if link_flag != "" {
+			link_arg = link_flag
+			name_arg = util.RegexFilter(link_arg, fname_pattern)
+			branch_arg = strings.TrimSuffix(util.RegexFilter(link_arg, branch_pattern), ".zip")
 
 			// wait period implementation using go-routines for download function
 			wg.Add(1)
 			go func(name_arg, link_arg string) {
 				util.Download(name_arg, link_arg)
 				wg.Done()
-			}(name_arg, link_arg)
+			}(name_arg+".zip", link_arg)
 			wg.Wait()
-			argument = name_arg
+			argument = name_arg + ".zip"
 		}
 
 		// file exist check
@@ -76,7 +84,7 @@ ungitz code -l <URL>,<filename>,<branch name>`,
 				fmt.Println(err.Error())
 			}
 		} else {
-			fmt.Println("File %v does not exist", argument)
+			fmt.Printf("File %v does not exist", argument)
 			return
 		}
 
@@ -88,17 +96,16 @@ ungitz code -l <URL>,<filename>,<branch name>`,
 
 		util.Unzip(fileName, wd)
 
-		var testname = util.FilenameWithoutExtension(fileName)
-
-		// regex filter
-		re := regexp.MustCompile(pattern)
-		submatches := re.FindStringSubmatch(testname)
-		if len(submatches) > 1 && submatches[1] != branch_arg {
-			var newtestname = testname + "-" + branch_arg
-			os.Chdir(newtestname)
-		} else {
-
-			os.Chdir(testname)
+		if link_flag != "" {
+			var testname = util.FilenameWithoutExtension(fileName)
+			os.Chdir(testname + "-" + branch_arg)
+		} else if len(File_flag) != 0 {
+			fileName1, err1 = filepath.Abs(repo_name + ".zip")
+			if err1 != nil {
+				fmt.Println(err1.Error())
+			}
+			var testname1 = util.FilenameWithoutExtension(fileName1)
+			os.Chdir(testname1)
 		}
 
 		// updation of working directory
@@ -121,6 +128,6 @@ ungitz code -l <URL>,<filename>,<branch name>`,
 
 func init() {
 	rootCmd.AddCommand(codeCmd)
-	codeCmd.PersistentFlags().StringSliceVarP(&File_flag, "file", "f", []string{}, "Arguments:<filename>,<URL>")
-	codeCmd.PersistentFlags().StringSliceVarP(&link_flag, "link", "l", []string{}, "Arguments:<URL>,<filename>,<git branch>")
+	codeCmd.PersistentFlags().StringSliceVarP(&File_flag, "file", "f", []string{}, "Arguments:<file name>,<repo name>,<branch name>")
+	codeCmd.PersistentFlags().StringVarP(&link_flag, "link", "l", "", "Argument:<URL>")
 }
