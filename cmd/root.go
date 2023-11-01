@@ -28,7 +28,7 @@ var cfgFile string
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
 	Use:               "ungitz",
-	Version:           "1.0.0",
+	Version:           "1.2.0",
 	Short:             "Ungitz can be used to automate the tasks of downloading, unzipping and opening a github repository within the user preferred IDE",
 	Long:              `Ungitz can be used to automate the tasks of downloading, unzipping and opening a github repository within the user preferred IDE`,
 	CompletionOptions: cobra.CompletionOptions{DisableDefaultCmd: true},
