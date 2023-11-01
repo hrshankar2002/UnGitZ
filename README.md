@@ -2,7 +2,7 @@
 # UnGitZ
 
 ![made-with-python](https://img.shields.io/badge/Made%20With-Go-blue)
-[![Go Reference](https://pkg.go.dev/badge/github.com/celestiaorg/celestia-node.svg)](https://pkg.go.dev/github.com/celestiaorg/celestia-node)
+[![Go Reference](https://pkg.go.dev/badge/github.com/spf13/cobra.svg)](https://pkg.go.dev/github.com/spf13/cobra)
 [![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/hrshankar2002/ungitz)](https://github.com/hrshankar2002/ungitz/releases/tag/v1.2)
 
 Ungitz is a CLI application written in Golang, primarily for simplifying git workflow for developers by automating the tasks of downloading, unzipping and opening a github repository within the user preferred IDE.
