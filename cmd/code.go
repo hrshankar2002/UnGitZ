@@ -119,10 +119,7 @@ ungitz code -l <URL>`,
 
 		if err != nil {
 			fmt.Println("Visual Studio Code executable not found in %PATH%")
-		} else {
-			fmt.Println("Unzipping and opening file.")
 		}
-
 	},
 }
 

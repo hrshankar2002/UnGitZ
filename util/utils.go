@@ -10,12 +10,21 @@ import (
 	"path"
 	"path/filepath"
 	"regexp"
-
 	"strings"
+	"time"
+
+	"github.com/briandowns/spinner"
 )
 
 // unzip function
 func Unzip(src, dest string) error {
+
+	s := spinner.New(spinner.CharSets[43], 100*time.Millisecond)
+	s.Prefix = "Unzippping... "
+	s.FinalMSG = "Unzip Successful "
+	s.Color("green")
+	s.Start()
+
 	r, err := zip.OpenReader(src)
 	if err != nil {
 		return err
@@ -76,6 +85,8 @@ func Unzip(src, dest string) error {
 		}
 	}
 
+	s.Stop()
+
 	return nil
 }
 
@@ -98,14 +109,20 @@ func FileExists(path string) (bool, error) {
 
 // download function
 func Download(filename, link string) error {
-	fmt.Println("Downloading file.")
+
+	s := spinner.New(spinner.CharSets[43], 100*time.Millisecond)
+	s.FinalMSG = "Download Successful "
+	s.Prefix = "Downloading... "
+	s.Color("white")
+	s.Start()
+
 	response, err := http.Get(link)
 	if err != nil {
 		return err
 	}
 	defer response.Body.Close()
 	if response.StatusCode != 200 {
-		return errors.New("Received non 200 response code")
+		return errors.New("received non 200 response code")
 	}
 	file, err := os.Create(filename)
 	if err != nil {
@@ -116,7 +133,9 @@ func Download(filename, link string) error {
 	if err != nil {
 		return err
 	}
-	fmt.Println("Download successful.")
+
+	s.Stop()
+
 	return nil
 }
 

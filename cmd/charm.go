@@ -111,10 +111,7 @@ ungitz code -l <URL>`,
 
 		if err != nil {
 			fmt.Println("Pycharm executable not found in %PATH%")
-		} else {
-			fmt.Println("Unzipping and opening file.")
 		}
-
 	},
 }
 
